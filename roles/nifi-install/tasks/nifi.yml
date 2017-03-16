@@ -1,4 +1,5 @@
 ---
+  # Detect presence of large download
   - name: Detect presence of nifi downloaded tarball
     stat: path='{{nifiTmpDir}}/{{nifiCompressedFile}}'
     register: nifi_archive
@@ -14,10 +15,9 @@
 
   - name: Download Nifi (>700 mb, Possibly ~10 minutes)
     get_url: url={{nifiUrl}} dest={{nifiTmpDir}} force=no
-    # when: nifi_archive|succeeded
+    when: nifi_archive.stat.exists == False
     tags: nifi
     register: downloadProgress
-  # - debug: var=downloadProgress.stdout_lines
 
   - name: Extract archive
     command: tar -xf {{nifiTmpDir}}/{{nifiCompressedFile}} -C {{nifiDir}}
