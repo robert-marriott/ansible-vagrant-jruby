@@ -3,7 +3,8 @@
 # --------------------------------------
 
 # Zookeeper Version.
-zookeeper_version: zookeeper-3.4.5-cdh5.1.2
+zookeeper_version: zookeeper-3.4.9
+zookeeper_url: http://apache.mirrors.lucidnetworks.net/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
 
 # Zookeeper Storage and Logging.
 zookeeper_data_store: /data/ansible/zookeeper
