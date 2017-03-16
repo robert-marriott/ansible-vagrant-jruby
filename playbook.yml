@@ -13,12 +13,13 @@
         rvm1_user: root }                           # Need root account to access system location
     # Installs Jruby
     - role: jruby-install
-    # Installs Nifi
-    - { role: nifi-install, nifi_user: 'root' }
     # Installs zookeeper
     - role: zookeeper-install
+    # Installs Nifi
+    - { role: nifi-install, nifi_user: 'root' }
 
-    
+
+
   # tasks:
   # - name: Install Apache
   #   yum: name=httpd state=latest

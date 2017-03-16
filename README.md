@@ -1,5 +1,12 @@
 # ansible-vagrant-jruby
 Ansible playbook and vagrantfile to create a standard CentOS 6.8 box
+#### Provisioned programs
+* Oracle Java 8
+* RVM (ruby version manager)
+* ruby
+* Jruby
+* Apache zookeeper
+* Apache Nifi
 
 ## Procedure
 
