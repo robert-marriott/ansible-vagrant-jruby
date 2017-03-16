@@ -14,10 +14,10 @@
 
   - name: Download Nifi (>700 mb, Possibly ~10 minutes)
     get_url: url={{nifiUrl}} dest={{nifiTmpDir}} force=no
-    when: nifi_archive|failed
+    # when: nifi_archive|succeeded
     tags: nifi
     register: downloadProgress
-  - debug: var=downloadProgress.stdout_lines
+  # - debug: var=downloadProgress.stdout_lines
 
   - name: Extract archive
     command: tar -xf {{nifiTmpDir}}/{{nifiCompressedFile}} -C {{nifiDir}}
