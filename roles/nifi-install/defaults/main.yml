@@ -1,0 +1,12 @@
+nifiTmpDir: /tmp
+nifiDir: /opt
+nifiUrl: http://apache.osuosl.org/nifi/1.1.2/nifi-1.1.2-bin.tar.gz
+nifiCompressedFile: nifi-1.1.2-bin.tar.gz
+nifiUnzipped: nifi-1.1.2
+# nifi_install_path: '~/.nifi'
+nifi_user: 'vagrant'
+nifi_nifi_version: 'stable'
+# Name of UID 0 user
+root_user: 'vagrant'
+# Name of GID 0 group
+root_group: '{{ root_user }}'

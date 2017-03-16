@@ -1,0 +1,41 @@
+---
+  - name: Detect presence of nifi downloaded tarball
+    stat: path='{{nifiTmpDir}}/{{nifiCompressedFile}}'
+    register: nifi_archive
+
+  - name: Detect presence of nifi shell script
+    stat: path='{{nifiDir}}/nifi/bin/nifi.sh'
+    register: nifi_script
+
+  # Install Nifi
+  - name: Detect nifi directory
+    file: state=directory path={{nifiDir}}
+    tags: nifi
+
+  - name: Download Nifi (>700 mb, Possibly ~10 minutes)
+    get_url: url={{nifiUrl}} dest={{nifiTmpDir}} force=no
+    when: nifi_archive|failed
+    tags: nifi
+    register: downloadProgress
+  - debug: var=downloadProgress.stdout_lines
+
+  - name: Extract archive
+    command: tar -xf {{nifiTmpDir}}/{{nifiCompressedFile}} -C {{nifiDir}}
+    sudo: yes
+    tags: nifi
+
+  - name: Symbolic link to ""/opt/nifi"
+    file: src={{nifiDir}}/{{nifiUnzipped}} dest={{nifiDir}}/nifi state=link
+    sudo: yes
+    tags: nifi
+
+  - name: Start Nifi shell script at bin/nifi.sh
+    command: sh /{{nifiDir}}/nifi/bin/nifi.sh
+
+  # - name: add nifi to path for everyone
+  #   template: src=nifi_env_vars.j2 dest=/etc/environment mode=544
+  #   tags: nifi
+  #
+  # - name: add nifi to path for sudo
+  #   template: src=nifi_env_vars.j2 dest=/etc/profile.d/nifi_envs.sh mode=744
+  #   tags: nifi
