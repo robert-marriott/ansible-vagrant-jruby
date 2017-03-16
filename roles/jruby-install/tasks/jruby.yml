@@ -1,0 +1,52 @@
+---
+# JRuby
+# - name: upgrade
+#   action: yum update upgrade=yes
+# jrubyTmpDir: /tmp
+# jrubyDir: /opt
+# jrubyUrl: https://s3.amazonaws.com/jruby.org/downloads/9.1.8.0/jruby-bin-9.1.8.0.tar.gz
+# jrubyCompressedFile: jruby-bin-9.1.8.0.tar.gz
+
+- name: install libselinux-python for python binding support
+  yum:
+    name: libselinux-python
+    state: latest
+
+# Install JRuby
+- name: ensure directory temporary jruby download directory is present
+  file: state=directory path={{jrubyDir}}
+  tags: jruby
+
+- name: download jruby
+  get_url: url={{jrubyUrl}} dest={{jrubyTmpDir}} force=no
+  tags: jruby
+
+- name: ensure jruby is extracted
+  command: tar -xf {{jrubyTmpDir}}/{{jrubyCompressedFile}} -C {{jrubyDir}}
+  sudo: yes
+  tags: jruby
+
+- name: soft link
+  file: src={{jrubyDir}}/{{jrubyUnzipped}} dest={{jrubyDir}}/jruby state=link
+  sudo: yes
+  tags: jruby
+
+- name: add jruby to path for everyone
+  template: src=jruby_env_vars.j2 dest=/etc/environment mode=544
+  tags: jruby
+
+- name: add jruby to path for sudo
+  template: src=jruby_env_vars.j2 dest=/etc/profile.d/jruby_envs.sh mode=744
+  tags: jruby
+
+- name: update ruby gems
+  command: sudo -i gem update --system
+  tags: jruby
+
+- name: Install Bundler
+  command: sudo -i gem install bundler
+  tags: jruby
+
+- name: Install compass
+  command: sudo -i gem install compass
+  tags: jruby
