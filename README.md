@@ -7,5 +7,10 @@ Ansible playbook and vagrantfile to create a standard CentOS 6.8 box
 ```
 $ vagrant up
 ```
+Running vagrant will call ansible during its provisioning process. Without the cert, it will need to be on guestwifi or a home network. If you need to reprovision once it is up:
+```
+$ vagrant provision
+```
 
- add booz self signed cert for wifi-net
+### Todo:
+ [] Add booz self signed cert for wifi-net

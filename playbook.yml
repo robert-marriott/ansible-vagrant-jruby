@@ -1,17 +1,24 @@
 ---
+  # Most of these programs install to /opt/xxx.
 - hosts: all
   become: yes
   become_user: root
   roles:
-    # - { role: oracle-java-install, oracle_java_set_as_default: yes }
-    # - { role: ruby-rvm-install, tags: ruby, become: yes, rvm1_rubies: ['ruby-2.4.0'],
-    #     rvm1_install_flags: '--auto-dotfiles',     # Remove --user-install from defaults
-    #     rvm1_install_path: /usr/local/rvm,         # Set to system location
-    #     rvm1_user: root                            # Need root account to access system location
-    #   }
-    # - role: jruby-install
+    # Installs latest version of Java
+    - { role: oracle-java-install, oracle_java_set_as_default: yes }
+    # Installs Ruby, rvm, bundler, etc
+    - { role: ruby-rvm-install, tags: ruby, become: yes, rvm1_rubies: ['ruby-2.4.0'],
+        rvm1_install_flags: '--auto-dotfiles',     # Remove --user-install from defaults
+        rvm1_install_path: /usr/local/rvm,         # Set to system location
+        rvm1_user: root }                           # Need root account to access system location
+    # Installs Jruby
+    - role: jruby-install
+    # Installs Nifi
     - { role: nifi-install, nifi_user: 'root' }
+    # Installs zookeeper
+    - role: zookeeper-install
 
+    
   # tasks:
   # - name: Install Apache
   #   yum: name=httpd state=latest

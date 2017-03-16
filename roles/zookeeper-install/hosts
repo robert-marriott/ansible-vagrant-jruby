@@ -1,0 +1,16 @@
+#Servers to deploy zookeeper
+# cp hosts /usr/local/etc/ansible/hosts
+
+# Main list of hosts to install zookeeper on
+[zookeepernodes]
+host.ip.zk.1 zookeeper_id=1
+host.ip.zk.2 zookeeper_id=2
+
+# Host if targeting a single installation
+[zookeeper-standalone]
+host.ip.zk.1 zookeeper_id=1
+
+# Hosts for cluster mode
+[zookeeper-cluster]
+host.ip.zk.1 zookeeper_id=1
+host.ip.zk.2 zookeeper_id=2
