@@ -6,8 +6,8 @@
   roles:
     # Installs latest version of Java. Choose oracle or OpenJDK.
     - { role: java-jdk-install,
-        oracle_jdk_install: True,
-        open_jdk_install: False
+        oracle_jdk_install: False,
+        open_jdk_install: True
       }
 
     # Installs Ruby, rvm, bundler, etc
@@ -24,11 +24,11 @@
 
     Installs zookeeper
     - { role: zookeeper-install,
-        zk_install_mode: 'vagrant' # cluster | vagrant | standalone
+        zk_install_mode: 'vagrant'                 # cluster | vagrant | standalone
       }
 
     # Installs Nifi
-    # - { role: nifi-install, nifi_user: 'root' }
+    - { role: nifi-install, nifi_user: 'root' }
 
 
 
