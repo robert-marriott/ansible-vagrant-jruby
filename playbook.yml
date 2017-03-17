@@ -22,7 +22,7 @@
     # Installs Jruby
     - role: jruby-install
 
-    Installs zookeeper
+    # Installs zookeeper
     - { role: zookeeper-install,
         zk_install_mode: 'vagrant'                 # cluster | vagrant | standalone
       }
