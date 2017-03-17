@@ -1,13 +1,21 @@
 ---
 
   # Updating Configuration File in Zookeeper.
-  - name: Updating Configuration File in Zookeeper.
+  - name: Updating Configuration File in Zookeeper for [cluster] mode
     template: src={{ item }} dest={{ common['soft_link_base_path'] }}/zookeeper/conf/{{ item }}  owner={{ zookeeper_user }} group={{ zookeeper_group }}
     with_items:
       - zoo.cfg
       - log4j.properties
+    when: zk_install_mode == 'cluster'
 #    notify:
 #      - Restart Zookeeper.
+
+  - name: Updating Configuration File in Zookeeper for [standalone] mode
+    template: src={{ item }} dest={{ common['soft_link_base_path'] }}/zookeeper/conf/{{ item }}  owner={{ zookeeper_user }} group={{ zookeeper_group }}
+    with_items:
+      - zoo-standalone.cfg
+      - log4j.properties
+    when: zk_install_mode == 'vagrant' or zk_install_mode == 'standalone'
 
   # Creating a directory for Zookeeper.
   - name: Creating a directory for Zookeeper.

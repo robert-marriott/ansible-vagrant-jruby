@@ -1,7 +1,14 @@
 ---
 
   # Initializing `myid` File for Zookeeper.
-  - name: Initializing `myid` File for Zookeeper.
+  - name: Initializing `myid` File for Zookeeper [cluster] mode.
     command: creates={{ zookeeper_data_store }}/myid {{ common['soft_link_base_path'] }}/zookeeper/bin/zkServer-initialize.sh --myid={{ zookeeper_id }}
     sudo: yes
     sudo_user: "{{ zookeeper_user }}"
+    when: zk_install_mode == 'cluster'
+
+  - name: Initializing `myid` File for Zookeeper in [{{zk_install_mode}}] mode.
+    command: creates={{ zookeeper_data_store }}/myid {{ common['soft_link_base_path'] }}/zookeeper/bin/zkServer.sh
+    sudo: yes
+    sudo_user: "{{ zookeeper_user }}"
+    when: zk_install_mode == 'vagrant' or zk_install_mode == 'standalone'

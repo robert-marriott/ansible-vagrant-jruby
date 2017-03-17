@@ -1,7 +1,3 @@
-# --------------------------------------
-# Zookeeper Variables.
-# --------------------------------------
-
 # Zookeeper Version.
 zookeeper_version: zookeeper-3.4.9
 zookeeper_url: http://apache.mirrors.lucidnetworks.net/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
@@ -9,25 +5,23 @@ zookeeper_url: http://apache.mirrors.lucidnetworks.net/zookeeper/zookeeper-3.4.9
 # Zookeeper Storage and Logging.
 zookeeper_data_store: /data/ansible/zookeeper
 zookeeper_logging: /data/ansible/zookeeper_logging
-
 # --------------------------------------
 # USERs
 # --------------------------------------
-
 zookeeper_user: zkadmin
 zookeeper_group: zkadmin
 zookeeper_password: zkpassword
-
 # --------------------------------------
 # COMMON FOR INSTALL PATH
 # --------------------------------------
-
-# Common Location information.
 common:
   install_base_path: /usr/local
   soft_link_base_path: /opt
-
 # --------------------------------------
 # JAVA Variables.
 # --------------------------------------
 java_home: /usr/local/java/jdk
+# --------------------------------------
+# STANDALONE vs CLUSTER config
+# --------------------------------------
+zk_install_mode: cluster #or standalone
