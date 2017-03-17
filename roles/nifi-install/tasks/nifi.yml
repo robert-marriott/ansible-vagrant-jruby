@@ -14,17 +14,25 @@
     tags: nifi
 
   - name: Download Nifi (>700 mb, Possibly ~10 minutes)
-    get_url: url={{nifiUrl}} dest={{nifiTmpDir}} force=no
+    get_url:
+      url: "{{nifiUrl}}"
+      dest: "{{nifiTmpDir}}"
+      force: no
+      checksum: md5:06113cdc410fdd75d7a2a805c9d44777
     when: nifi_archive.stat.exists == False
     tags: nifi
-    register: downloadProgress
 
   - name: Extract archive
     command: tar -xf {{nifiTmpDir}}/{{nifiCompressedFile}} -C {{nifiDir}}
     sudo: yes
     tags: nifi
 
-  - name: Symbolic link to ""/opt/nifi"
+  # - name: Extract archive from [{{nifiTmpDir}}/{{nifiCompressedFile}}] to [/usr/local/bin]
+  #   unarchive:
+  #     src: "{{nifiTmpDir}}/{{nifiCompressedFile}}"
+  #     dest: "{{nifiDir}}"
+
+  - name: Symbolic link to "/opt/nifi"
     file: src={{nifiDir}}/{{nifiUnzipped}} dest={{nifiDir}}/nifi state=link
     sudo: yes
     tags: nifi
