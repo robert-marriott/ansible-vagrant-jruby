@@ -4,20 +4,28 @@
   become: yes
   become_user: root
   roles:
-    # Installs latest version of Java
-    # - { role: oracle-java-install, oracle_java_set_as_default: yes }
-    - role: java-jdk-install
-    # Installs Ruby, rvm, bundler, etc
-    - { role: ruby-rvm-install, tags: ruby, become: yes, rvm1_rubies: ['ruby-2.4.0'],
-        rvm1_install_flags: '--auto-dotfiles',     # Remove --user-install from defaults
-        rvm1_install_path: /usr/local/rvm,         # Set to system location
-        rvm1_user: root }                           # Need root account to access system location
-    # Installs Jruby
-    - role: jruby-install
+    # # Installs latest version of Java. Choose oracle or OpenJDK.
+    # - { role: java-jdk-install,
+    #     oracle_jdk_install: False,
+    #     open_jdk_install: True
+    #   }
+    #
+    # # Installs Ruby, rvm, bundler, etc
+    # - { role: ruby-rvm-install, tags: ruby,
+    #     become: yes,
+    #     rvm1_rubies: ['ruby-2.4.0'],               # Add additional ruby versions to array ['v1','v2'...]
+    #     rvm1_install_flags: '--auto-dotfiles',     # Remove --user-install from defaults
+    #     rvm1_install_path: /usr/local/rvm,         # Set to system location
+    #     rvm1_user: root                            # Need root account to access system location
+    #   }
+    #
+    # # Installs Jruby
+    # - role: jruby-install
+
     # Installs zookeeper
-    - role: zookeeper-install
+    # - role: zookeeper-install
     # Installs Nifi
-    - { role: nifi-install, nifi_user: 'root' }
+    # - { role: nifi-install, nifi_user: 'root' }
 
 
 

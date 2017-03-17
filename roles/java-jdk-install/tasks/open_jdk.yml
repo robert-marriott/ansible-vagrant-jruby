@@ -1,0 +1,4 @@
+- name: install the latest version of Open JDK from yum repositories
+  yum:
+    name: java
+    state: latest

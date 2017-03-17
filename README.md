@@ -1,7 +1,7 @@
 # ansible-vagrant-jruby
 Ansible playbook and vagrantfile to create a standard CentOS 6.8 box
 #### Provisioned programs
-* Oracle Java 8
+* Oracle or OpenJDK Java 8
 * RVM (ruby version manager)
 * ruby
 * Jruby
@@ -14,7 +14,7 @@ Ansible playbook and vagrantfile to create a standard CentOS 6.8 box
 ```
 $ vagrant up
 ```
-Running vagrant will call ansible during its provisioning process. Without the cert, it will need to be on guestwifi or a home network. If you need to reprovision once it is up:
+Running vagrant will call ansible during its provisioning process. Without the cert, it will need to be on guestwifi or a home network. If you need to re-provision once it is up:
 ```
 $ vagrant provision
 ```

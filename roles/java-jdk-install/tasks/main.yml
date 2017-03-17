@@ -1,1 +1,5 @@
-- include: java.yml
+- include: oracle_java.yml
+  when: oracle_jdk_install
+
+- include: open_jdk.yml
+  when: open_jdk_install

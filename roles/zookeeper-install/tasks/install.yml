@@ -1,8 +1,25 @@
 ---
+     # Check for previous zookeeper installation to avoid download
+  - name: Detect presence of zookeeper install at [{{ common['soft_link_base_path'] }}/zookeeper]
+    stat: path='{{ common['soft_link_base_path'] }}/zookeeper'
+    register: zk_installed
 
-  # unarchive - Copy tgz file and extract in destination.
-  - name: Copy and UnArchive the Package in Destination Server.
-    unarchive: creates={{ common['install_base_path'] }}/{{ zookeeper_version }} src={{zookeeper_url}} dest={{ common['install_base_path'] }} owner={{ zookeeper_user }} group={{ zookeeper_group }}
+  - name: Download zookeeper {{zookeeper_version}}
+    get_url: url={{zookeeper_url}} dest={{common['install_base_path']}} force=no
+    when: zk_installed.stat.exists == False
+
+    # unarchive - Copy tgz file and extract in destination.
+  # - name: Copy and Unarchive the Package in Destination Server.
+  #   unarchive:
+  #     # creates={{ common['install_base_path'] }}/{{ zookeeper_version }}
+  #     # src={{common['install_base_path']}}/{{zookeeper_version}}.tar.gz
+  #     src='/usr/local/zookeeper-3.4.9.tar.gz'
+  #     dest={{ common['install_base_path'] }}
+  #     owner={{ zookeeper_user }}
+  #     group={{ zookeeper_group }}
+
+  - name: Extract archive to [{{ common['install_base_path'] }}]
+    command: tar -xf {{common['install_base_path']}}/{{zookeeper_version}}.tar.gz -C {{ common['install_base_path'] }}
 
   # Changing permission to directory, setting `zookeeper_user` as the new owner.
   - name: Change Directory Permissions.
@@ -11,3 +28,16 @@
   # Creating Symbolic link.
   - name: Creating a Symbolic Link in {{ common['install_base_path'] }}/zookeeper.
     file: src={{ common['install_base_path'] }}/{{ zookeeper_version }} path={{ common['soft_link_base_path'] }}/zookeeper state=link owner={{ zookeeper_user }} group={{ zookeeper_group }}
+
+# zookeeper_version: zookeeper-3.4.9
+# zookeeper_url: http://apache.mirrors.lucidnetworks.net/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
+#
+# zookeeper_data_store: /data/ansible/zookeeper
+# zookeeper_logging: /data/ansible/zookeeper_logging
+#
+#
+# common:
+#   install_base_path: /usr/local
+#   soft_link_base_path: /opt
+#
+# java_home: /usr/local/java/jdk

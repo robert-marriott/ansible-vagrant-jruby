@@ -1,1 +1,6 @@
+- name: Detect presence of previous jruby install at [{{jrubyDir}}/{{jrubyUnzipped}}]
+  stat: path='{{jrubyDir}}/{{jrubyUnzipped}}'
+  register: jruby_installed
+
 - include: jruby.yml tags=jruby
+  when: jruby_installed.stat.exists == False
