@@ -1,6 +1,7 @@
 nifiTmpDir: /tmp
 nifiDir: /opt
 nifiUrl: http://apache.osuosl.org/nifi/1.1.2/nifi-1.1.2-bin.tar.gz
+nifiUrlAlt: http://apache.mirrors.lucidnetworks.net/nifi/1.1.2/nifi-1.1.2-bin.tar.gz
 nifiCompressedFile: nifi-1.1.2-bin.tar.gz
 nifiUnzipped: nifi-1.1.2
 # nifi_install_path: '~/.nifi'
