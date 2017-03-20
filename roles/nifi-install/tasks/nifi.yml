@@ -19,12 +19,14 @@
       dest: "{{nifiTmpDir}}"
       force: no
       checksum: md5:06113cdc410fdd75d7a2a805c9d44777
+      retries: 5
     when: nifi_archive.stat.exists == False
     tags: nifi
 
   - name: Extract archive
     command: tar -xf {{nifiTmpDir}}/{{nifiCompressedFile}} -C {{nifiDir}}
     sudo: yes
+    when: nifi_script.stat.exists == False
     tags: nifi
 
   # - name: Extract archive from [{{nifiTmpDir}}/{{nifiCompressedFile}}] to [/usr/local/bin]
